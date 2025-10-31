@@ -20,8 +20,10 @@ class TestCalculatorLogging(unittest.TestCase):
         formatter = logging.Formatter('%(levelname)s - %(message)s')
         self.handler.setFormatter(formatter)
         
-        # Get the calculator logger and add our handler
-        self.logger = logging.getLogger('calculator')
+        # Get the calculator logger (using __name__ from calculator module)
+        import calculator
+        self.logger = logging.getLogger(calculator.__name__)
+        self.logger.setLevel(logging.INFO)  # Ensure logger level is set
         self.logger.addHandler(self.handler)
     
     def tearDown(self):

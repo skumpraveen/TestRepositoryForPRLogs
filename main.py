@@ -2,7 +2,14 @@
 """
 Main script to demonstrate calculator functionality with logging.
 """
+import logging
 from calculator import Calculator
+
+# Configure logging at application entry point
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 
 
 def main():
