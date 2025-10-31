@@ -16,14 +16,14 @@ class TestCalculatorLogging(unittest.TestCase):
         # Capture log output
         self.log_capture = StringIO()
         self.handler = logging.StreamHandler(self.log_capture)
-        self.handler.setLevel(logging.INFO)
+        self.handler.setLevel(logging.DEBUG)  # Set to DEBUG to capture all levels including WARNING
         formatter = logging.Formatter('%(levelname)s - %(message)s')
         self.handler.setFormatter(formatter)
         
         # Get the calculator logger (using __name__ from calculator module)
         import calculator
         self.logger = logging.getLogger(calculator.__name__)
-        self.logger.setLevel(logging.INFO)  # Ensure logger level is set
+        self.logger.setLevel(logging.DEBUG)  # Set to DEBUG to ensure all levels are captured
         self.logger.addHandler(self.handler)
     
     def tearDown(self):

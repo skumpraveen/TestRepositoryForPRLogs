@@ -5,6 +5,10 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+# Constants for warning thresholds
+LARGE_RESULT_THRESHOLD = 1e10
+SMALL_NUMBER_THRESHOLD = 0.001
+
 
 class Calculator:
     """A simple calculator with logging for all operations."""
@@ -31,7 +35,7 @@ class Calculator:
         result = a * b
         
         # Warning for very large results
-        if abs(result) > 1e10:
+        if abs(result) > LARGE_RESULT_THRESHOLD:
             logger.warning(f"Multiplication result is very large: {result}, precision may be affected")
         
         logger.info(f"Multiplication: {a} * {b} = {result}")
@@ -44,13 +48,13 @@ class Calculator:
             raise ValueError("Cannot divide by zero")
         
         # Warning for division by very small numbers
-        if abs(b) < 0.001 and b != 0:
+        if abs(b) < SMALL_NUMBER_THRESHOLD and b != 0:
             logger.warning(f"Division by very small number: {a} / {b} may cause precision issues")
         
         result = a / b
         
         # Warning for very large results
-        if abs(result) > 1e10:
+        if abs(result) > LARGE_RESULT_THRESHOLD:
             logger.warning(f"Division result is very large: {result}, precision may be affected")
         
         logger.info(f"Division: {a} / {b} = {result}")
