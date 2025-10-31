@@ -15,7 +15,7 @@ class DifferentiatedLogFormatter(logging.Formatter):
     
     # Format templates for different log levels
     INFO_FORMAT = '[INFO] %(asctime)s - %(name)s - %(message)s'
-    ERROR_FORMAT = '[ERROR] %(asctime)s - %(name)s - ⚠️  %(message)s'
+    ERROR_FORMAT = '[ERROR] %(asctime)s - %(name)s - ⚠️ %(message)s'
     DEFAULT_FORMAT = '[%(levelname)s] %(asctime)s - %(name)s - %(message)s'
     
     def format(self, record):

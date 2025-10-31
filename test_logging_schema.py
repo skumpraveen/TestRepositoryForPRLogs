@@ -4,6 +4,7 @@ Tests for the new logging schema that differentiates Information and Error logs.
 import unittest
 import logging
 from io import StringIO
+import calculator
 from logging_schema import DifferentiatedLogFormatter, configure_logging
 
 
@@ -140,7 +141,6 @@ class TestLoggingSchemaIntegration(unittest.TestCase):
         self.handler.setFormatter(formatter)
         
         # Add handler to calculator logger
-        import calculator
         self.calc_logger = logging.getLogger(calculator.__name__)
         self.calc_logger.addHandler(self.handler)
     
