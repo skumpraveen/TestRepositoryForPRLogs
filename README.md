@@ -23,14 +23,26 @@ All calculations are automatically logged with the following information:
 - **Operation**: The type of calculation (addition, subtraction, etc.)
 - **Operands**: The input values
 - **Result**: The calculated result
-- **Level**: INFO for successful operations, ERROR for failures
+- **Level**: 
+  - **INFO** for successful operations
+  - **WARNING** for operations that may have issues (e.g., division by very small numbers, very large results, unexpected negative results)
+  - **ERROR** for failures (e.g., division by zero)
 
 Example log output:
 ```
 2025-10-31 13:17:46,472 - calculator - INFO - Addition: 10 + 5 = 15
 2025-10-31 13:17:46,472 - calculator - INFO - Subtraction: 10 - 5 = 5
-2025-10-31 13:17:46,473 - calculator - ERROR - Division by zero attempted: 10 / 0
+2025-10-31 13:17:46,473 - calculator - WARNING - Subtraction results in negative: 5 - 10 = -5
+2025-10-31 13:17:46,474 - calculator - WARNING - Multiplication result is very large: 100000000000, precision may be affected
+2025-10-31 13:17:46,475 - calculator - ERROR - Division by zero attempted: 10 / 0
 ```
+
+### Warning Scenarios
+
+The calculator logs warnings for the following situations:
+- **Division by very small numbers** (absolute value < 0.001): May cause precision issues
+- **Very large results** (absolute value > 10^10): Precision may be affected
+- **Negative results from positive operands**: When subtracting a larger number from a smaller positive number
 
 ## Usage
 

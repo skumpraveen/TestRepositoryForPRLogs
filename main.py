@@ -7,7 +7,7 @@ from calculator import Calculator
 
 # Configure logging at application entry point
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,  # Set to DEBUG to capture all levels including WARNING
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 
@@ -32,8 +32,15 @@ def main():
     except ValueError as e:
         print(f"Error caught: {e}")
     
+    # Demonstrate warning scenarios
+    print("\n--- Warning Scenarios ---")
+    print(f"\n5 - 10 = {calc.subtract(5, 10)} (Warning: results in negative)")
+    print(f"1000000 * 100000 = {calc.multiply(1000000, 100000)} (Warning: very large result)")
+    print(f"100 / 0.0001 = {calc.divide(100, 0.0001)} (Warning: dividing by very small number)")
+    
     print("\n" + "=" * 40)
     print("Check the logs above for calculation details!")
+
 
 
 if __name__ == "__main__":

@@ -74,6 +74,38 @@ class TestCalculatorLogging(unittest.TestCase):
         log_output = self.get_log_output()
         self.assertIn("Division by zero attempted", log_output)
         self.assertIn("ERROR", log_output)
+    
+    def test_subtract_negative_result_warning(self):
+        """Test that subtraction resulting in negative logs a warning."""
+        result = self.calc.subtract(5, 10)
+        self.assertEqual(result, -5)
+        log_output = self.get_log_output()
+        self.assertIn("Subtraction results in negative", log_output)
+        self.assertIn("WARNING", log_output)
+    
+    def test_multiply_large_result_warning(self):
+        """Test that multiplication with very large result logs a warning."""
+        result = self.calc.multiply(1000000, 100000)
+        self.assertEqual(result, 100000000000)
+        log_output = self.get_log_output()
+        self.assertIn("Multiplication result is very large", log_output)
+        self.assertIn("WARNING", log_output)
+    
+    def test_divide_small_number_warning(self):
+        """Test that division by very small number logs a warning."""
+        result = self.calc.divide(100, 0.0001)
+        self.assertEqual(result, 1000000.0)
+        log_output = self.get_log_output()
+        self.assertIn("Division by very small number", log_output)
+        self.assertIn("WARNING", log_output)
+    
+    def test_divide_large_result_warning(self):
+        """Test that division resulting in very large number logs a warning."""
+        result = self.calc.divide(1e15, 10)
+        self.assertEqual(result, 1e14)
+        log_output = self.get_log_output()
+        self.assertIn("Division result is very large", log_output)
+        self.assertIn("WARNING", log_output)
 
 
 class TestCalculatorOperations(unittest.TestCase):
