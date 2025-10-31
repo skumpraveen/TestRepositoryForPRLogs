@@ -61,8 +61,11 @@ class Calculator {
                 break;
             case '/':
                 if (current === 0) {
-                    alert('Cannot divide by zero');
-                    this.clear();
+                    this.currentOperand = 'Error';
+                    this.operation = undefined;
+                    this.previousOperand = '';
+                    this.updateDisplay();
+                    setTimeout(() => this.clear(), 1500);
                     return;
                 }
                 computation = prev / current;
@@ -91,7 +94,7 @@ class Calculator {
             });
         }
 
-        if (decimalDigits != null) {
+        if (decimalDigits !== undefined) {
             return `${integerDisplay}.${decimalDigits}`;
         } else {
             return integerDisplay;
@@ -100,7 +103,7 @@ class Calculator {
 
     updateDisplay() {
         this.currentOperandElement.textContent = this.getDisplayNumber(this.currentOperand);
-        if (this.operation != null) {
+        if (this.operation !== undefined) {
             this.previousOperandElement.textContent = 
                 `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
         } else {
