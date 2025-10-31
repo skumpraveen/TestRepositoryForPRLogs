@@ -18,19 +18,43 @@ The calculator supports the following operations:
 
 ## Logging
 
-All calculations are automatically logged with the following information:
-- **Timestamp**: When the calculation was performed
-- **Operation**: The type of calculation (addition, subtraction, etc.)
-- **Operands**: The input values
-- **Result**: The calculated result
-- **Level**: INFO for successful operations, ERROR for failures
+The repository uses a **differentiated logging schema** that clearly distinguishes between Information logs and Error logs:
 
-Example log output:
+### Logging Schema Features
+
+- **Information Logs (INFO)**: Prefixed with `[INFO]` for clear identification of successful operations
+- **Error Logs (ERROR)**: Prefixed with `[ERROR]` and marked with ⚠️ emoji for high visibility of failures
+- **Timestamps**: All logs include precise timestamps
+- **Module Names**: Logger names identify the source of each log entry
+- **Detailed Messages**: Operation details, operands, and results
+
+### Log Format Examples
+
+**Information Log:**
 ```
-2025-10-31 13:17:46,472 - calculator - INFO - Addition: 10 + 5 = 15
-2025-10-31 13:17:46,472 - calculator - INFO - Subtraction: 10 - 5 = 5
-2025-10-31 13:17:46,473 - calculator - ERROR - Division by zero attempted: 10 / 0
+[INFO] 2025-10-31 19:38:53,726 - calculator - Addition: 10 + 5 = 15
 ```
+
+**Error Log:**
+```
+[ERROR] 2025-10-31 19:38:53,726 - calculator - ⚠️  Division by zero attempted: 10 / 0
+```
+
+### Using the New Logging Schema
+
+The logging schema is configured automatically when running the application:
+
+```python
+from logging_schema import configure_logging
+import logging
+
+# Configure logging with the differentiated schema
+configure_logging(level=logging.INFO)
+```
+
+All calculations are automatically logged with the appropriate format:
+- **Successful operations** use the INFO schema
+- **Errors and failures** use the ERROR schema with enhanced visibility
 
 ## Usage
 
