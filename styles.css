@@ -7,10 +7,34 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    gap: 20px;
+}
+
+.orientation-toggle {
+    position: relative;
+}
+
+#orientation-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+#orientation-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
 }
 
 .calculator {
@@ -107,4 +131,27 @@ body {
 
 .btn-equals:hover {
     background: #66bb6a;
+}
+
+/* Landscape mode styles */
+.calculator.landscape {
+    width: 600px;
+    max-width: 90vw;
+}
+
+.calculator.landscape .display {
+    min-height: 80px;
+}
+
+.calculator.landscape .current-operand {
+    font-size: 2rem;
+}
+
+.calculator.landscape .buttons {
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.calculator.landscape .btn {
+    padding: 15px;
+    font-size: 1.2rem;
 }
