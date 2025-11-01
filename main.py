@@ -4,12 +4,10 @@ Main script to demonstrate calculator functionality with logging.
 """
 import logging
 from calculator import Calculator
+from logging_schema import configure_logging
 
-# Configure logging at application entry point
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
+# Configure logging with the new differentiated schema
+configure_logging(level=logging.INFO)
 
 
 def main():
