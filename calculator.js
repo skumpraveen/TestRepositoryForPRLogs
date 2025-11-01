@@ -116,3 +116,17 @@ class Calculator {
 const previousOperandElement = document.getElementById('previous-operand');
 const currentOperandElement = document.getElementById('current-operand');
 const calculator = new Calculator(previousOperandElement, currentOperandElement);
+
+// Orientation toggle function
+function toggleOrientation() {
+    const calculatorElement = document.getElementById('calculator');
+    const orientationBtn = document.getElementById('orientation-btn');
+    
+    calculatorElement.classList.toggle('landscape');
+    
+    if (calculatorElement.classList.contains('landscape')) {
+        orientationBtn.textContent = '🔄 Switch to Portrait';
+    } else {
+        orientationBtn.textContent = '🔄 Switch to Landscape';
+    }
+}

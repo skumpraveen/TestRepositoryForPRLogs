@@ -7,7 +7,10 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="calculator">
+    <div class="orientation-toggle">
+        <button id="orientation-btn" onclick="toggleOrientation()">🔄 Switch to Landscape</button>
+    </div>
+    <div class="calculator" id="calculator">
         <div class="display">
             <div class="previous-operand" id="previous-operand"></div>
             <div class="current-operand" id="current-operand">0</div>
