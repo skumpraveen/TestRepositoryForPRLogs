@@ -4,6 +4,7 @@ Main script to demonstrate calculator functionality with logging.
 """
 import logging
 from calculator import Calculator
+from logging_schema import configure_logging
 
 # Configure logging at application entry point
 logging.basicConfig(

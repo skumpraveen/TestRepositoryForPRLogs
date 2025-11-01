@@ -43,6 +43,43 @@ The calculator logs warnings for the following situations:
 - **Division by very small numbers** (absolute value < 0.001): May cause precision issues
 - **Very large results** (absolute value > 10^10): Precision may be affected
 - **Negative results from positive operands**: When subtracting a larger number from a smaller positive number
+The repository uses a **differentiated logging schema** that clearly distinguishes between Information logs and Error logs:
+
+### Logging Schema Features
+
+- **Information Logs (INFO)**: Prefixed with `[INFO]` for clear identification of successful operations
+- **Error Logs (ERROR)**: Prefixed with `[ERROR]` and marked with ⚠️ emoji for high visibility of failures
+- **Timestamps**: All logs include precise timestamps
+- **Module Names**: Logger names identify the source of each log entry
+- **Detailed Messages**: Operation details, operands, and results
+
+### Log Format Examples
+
+**Information Log:**
+```
+[INFO] 2025-10-31 19:38:53,726 - calculator - Addition: 10 + 5 = 15
+```
+
+**Error Log:**
+```
+[ERROR] 2025-10-31 19:38:53,726 - calculator - ⚠️  Division by zero attempted: 10 / 0
+```
+
+### Using the New Logging Schema
+
+The logging schema is configured automatically when running the application:
+
+```python
+from logging_schema import configure_logging
+import logging
+
+# Configure logging with the differentiated schema
+configure_logging(level=logging.INFO)
+```
+
+All calculations are automatically logged with the appropriate format:
+- **Successful operations** use the INFO schema
+- **Errors and failures** use the ERROR schema with enhanced visibility
 
 ## Usage
 
