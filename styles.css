@@ -17,9 +17,12 @@ body {
 
 .orientation-toggle {
     position: relative;
+    display: flex;
+    gap: 10px;
 }
 
-#orientation-btn {
+#orientation-btn,
+#history-btn {
     background: rgba(255, 255, 255, 0.2);
     color: #fff;
     border: 2px solid rgba(255, 255, 255, 0.3);
@@ -32,7 +35,8 @@ body {
     backdrop-filter: blur(10px);
 }
 
-#orientation-btn:hover {
+#orientation-btn:hover,
+#history-btn:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
 }
@@ -154,4 +158,90 @@ body {
 .calculator.landscape .btn {
     padding: 15px;
     font-size: 1.2rem;
+}
+
+/* History panel styles */
+.history-panel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 400px;
+    height: 100vh;
+    background: #2d2d2d;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-panel.visible {
+    right: 0;
+}
+
+.history-header {
+    background: #1a1a1a;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #404040;
+}
+
+.history-header h3 {
+    color: #fff;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.history-clear-btn {
+    background: #ff5252;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.history-clear-btn:hover {
+    background: #ff6666;
+    transform: scale(1.05);
+}
+
+.history-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.history-item {
+    background: #404040;
+    color: #fff;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.history-item:hover {
+    background: #505050;
+    transform: translateX(-5px);
+}
+
+.history-empty {
+    color: #888;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}
+
+/* Responsive design for history panel */
+@media (max-width: 768px) {
+    .history-panel {
+        width: 100%;
+        right: -100%;
+    }
 }
