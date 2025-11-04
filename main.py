@@ -41,6 +41,18 @@ def main():
     
     print("\n" + "=" * 40)
     print("Check the logs above for calculation details!")
+    
+    # Display calculation history
+    print("\n" + "=" * 40)
+    print("Calculation History:")
+    print("=" * 40)
+    history = calc.get_history()
+    if history:
+        for i, entry in enumerate(history, 1):
+            print(f"{i}. {entry}")
+    else:
+        print("No calculations in history")
+    print("=" * 40)
 
 
 

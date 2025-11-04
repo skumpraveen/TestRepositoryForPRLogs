@@ -146,5 +146,95 @@ class TestCalculatorOperations(unittest.TestCase):
         self.assertIn("Cannot divide by zero", str(context.exception))
 
 
+class TestCalculatorHistory(unittest.TestCase):
+    """Test calculator history tracking."""
+    
+    def setUp(self):
+        """Set up test fixtures."""
+        self.calc = Calculator()
+    
+    def test_history_initialized_empty(self):
+        """Test that history is empty on initialization."""
+        history = self.calc.get_history()
+        self.assertEqual(len(history), 0)
+        self.assertIsInstance(history, list)
+    
+    def test_history_tracks_addition(self):
+        """Test that addition is tracked in history."""
+        self.calc.add(5, 3)
+        history = self.calc.get_history()
+        self.assertEqual(len(history), 1)
+        self.assertIn("5 + 3 = 8", history[0])
+    
+    def test_history_tracks_subtraction(self):
+        """Test that subtraction is tracked in history."""
+        self.calc.subtract(10, 4)
+        history = self.calc.get_history()
+        self.assertEqual(len(history), 1)
+        self.assertIn("10 - 4 = 6", history[0])
+    
+    def test_history_tracks_multiplication(self):
+        """Test that multiplication is tracked in history."""
+        self.calc.multiply(6, 7)
+        history = self.calc.get_history()
+        self.assertEqual(len(history), 1)
+        self.assertIn("6 * 7 = 42", history[0])
+    
+    def test_history_tracks_division(self):
+        """Test that division is tracked in history."""
+        self.calc.divide(20, 4)
+        history = self.calc.get_history()
+        self.assertEqual(len(history), 1)
+        self.assertIn("20 / 4 = 5.0", history[0])
+    
+    def test_history_tracks_multiple_operations(self):
+        """Test that multiple operations are tracked in order."""
+        self.calc.add(10, 5)
+        self.calc.subtract(10, 3)
+        self.calc.multiply(4, 5)
+        self.calc.divide(20, 4)
+        
+        history = self.calc.get_history()
+        self.assertEqual(len(history), 4)
+        self.assertIn("10 + 5 = 15", history[0])
+        self.assertIn("10 - 3 = 7", history[1])
+        self.assertIn("4 * 5 = 20", history[2])
+        self.assertIn("20 / 4 = 5.0", history[3])
+    
+    def test_history_tracks_division_by_zero_error(self):
+        """Test that division by zero error is tracked in history."""
+        try:
+            self.calc.divide(10, 0)
+        except ValueError:
+            pass
+        
+        history = self.calc.get_history()
+        self.assertEqual(len(history), 1)
+        self.assertIn("10 / 0 = Error: Division by zero", history[0])
+    
+    def test_clear_history(self):
+        """Test that clear_history removes all entries."""
+        self.calc.add(5, 3)
+        self.calc.subtract(10, 4)
+        self.calc.multiply(6, 7)
+        
+        self.assertEqual(len(self.calc.get_history()), 3)
+        
+        self.calc.clear_history()
+        
+        history = self.calc.get_history()
+        self.assertEqual(len(history), 0)
+    
+    def test_get_history_returns_copy(self):
+        """Test that get_history returns a copy, not the original list."""
+        self.calc.add(5, 3)
+        history1 = self.calc.get_history()
+        history1.append("Modified externally")
+        
+        history2 = self.calc.get_history()
+        self.assertEqual(len(history2), 1)
+        self.assertNotIn("Modified externally", history2)
+
+
 if __name__ == '__main__':
     unittest.main()
