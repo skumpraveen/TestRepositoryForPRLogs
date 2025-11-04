@@ -2,6 +2,7 @@ class Calculator {
     constructor(previousOperandElement, currentOperandElement) {
         this.previousOperandElement = previousOperandElement;
         this.currentOperandElement = currentOperandElement;
+        this.history = [];
         this.clear();
     }
 
@@ -49,6 +50,7 @@ class Calculator {
         const current = parseFloat(this.currentOperand);
         if (isNaN(prev) || isNaN(current)) return;
 
+        let operationSymbol = this.operation;
         switch (this.operation) {
             case '+':
                 computation = prev + current;
@@ -58,9 +60,12 @@ class Calculator {
                 break;
             case '*':
                 computation = prev * current;
+                operationSymbol = '×';
                 break;
             case '/':
                 if (current === 0) {
+                    this.history.push(`${prev} ÷ ${current} = Error: Division by zero`);
+                    updateHistoryDisplay();
                     this.currentOperand = 'Error';
                     this.operation = undefined;
                     this.previousOperand = '';
@@ -69,11 +74,16 @@ class Calculator {
                     return;
                 }
                 computation = prev / current;
+                operationSymbol = '÷';
                 break;
             default:
                 return;
         }
 
+        // Add to history
+        this.history.push(`${prev} ${operationSymbol} ${current} = ${computation}`);
+        updateHistoryDisplay();
+        
         this.currentOperand = computation.toString();
         this.operation = undefined;
         this.previousOperand = '';
@@ -110,12 +120,53 @@ class Calculator {
             this.previousOperandElement.textContent = '';
         }
     }
+    
+    getHistory() {
+        return this.history.slice();
+    }
+    
+    clearHistory() {
+        this.history = [];
+        updateHistoryDisplay();
+    }
 }
 
 // Initialize calculator
 const previousOperandElement = document.getElementById('previous-operand');
 const currentOperandElement = document.getElementById('current-operand');
 const calculator = new Calculator(previousOperandElement, currentOperandElement);
+
+// History display functions
+function updateHistoryDisplay() {
+    const historyList = document.getElementById('history-list');
+    const history = calculator.getHistory();
+    
+    if (history.length === 0) {
+        historyList.innerHTML = '<div class="history-empty">No calculations yet</div>';
+    } else {
+        historyList.innerHTML = history.map((entry, index) => 
+            `<div class="history-item">${index + 1}. ${entry}</div>`
+        ).join('');
+    }
+}
+
+function toggleHistory() {
+    const historyPanel = document.getElementById('history-panel');
+    const historyBtn = document.getElementById('history-btn');
+    
+    historyPanel.classList.toggle('visible');
+    
+    if (historyPanel.classList.contains('visible')) {
+        historyBtn.textContent = '📊 Hide History';
+        updateHistoryDisplay();
+    } else {
+        historyBtn.textContent = '📊 Show History';
+    }
+}
+
+function clearCalculatorHistory() {
+    calculator.clearHistory();
+}
 
 // Orientation toggle function
 function toggleOrientation() {
