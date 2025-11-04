@@ -50,7 +50,15 @@ class Calculator {
         const current = parseFloat(this.currentOperand);
         if (isNaN(prev) || isNaN(current)) return;
 
-        let operationSymbol = this.operation;
+        // Map operation symbols for display in history
+        const operationSymbols = {
+            '+': '+',
+            '-': '-',
+            '*': '×',
+            '/': '÷'
+        };
+        const operationSymbol = operationSymbols[this.operation] || this.operation;
+
         switch (this.operation) {
             case '+':
                 computation = prev + current;
@@ -60,11 +68,10 @@ class Calculator {
                 break;
             case '*':
                 computation = prev * current;
-                operationSymbol = '×';
                 break;
             case '/':
                 if (current === 0) {
-                    this.history.push(`${prev} ÷ ${current} = Error: Division by zero`);
+                    this.history.push(`${prev} ${operationSymbol} ${current} = Error: Division by zero`);
                     updateHistoryDisplay();
                     this.currentOperand = 'Error';
                     this.operation = undefined;
@@ -74,7 +81,6 @@ class Calculator {
                     return;
                 }
                 computation = prev / current;
-                operationSymbol = '÷';
                 break;
             default:
                 return;
